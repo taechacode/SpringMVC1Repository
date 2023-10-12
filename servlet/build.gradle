@@ -29,7 +29,12 @@ dependencies {
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+	// https://www.inflearn.com/questions/176890 참고
+	// 주석 처리를 하면 스프링부트 내장 톰캣 코드가 컴파일 시점에 포함된다.
+	// (주석 처리하지 않으면 별도의 런타임 환경에서 라이브러리 제공, 실행할 때 해당 라이브러리를 사용하지 않아서 생기는 문제)
+	// providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
