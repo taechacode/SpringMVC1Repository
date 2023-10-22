@@ -35,11 +35,6 @@ public class FrontControllerServletV5 extends HttpServlet {
         initHandlerAdapters();
     }
 
-    private void initHandlerAdapters() {
-        handlerAdapters.add(new ControllerV3HandlerAdapter()); // V3 컨트롤러 어댑터 탑재
-        handlerAdapters.add(new ControllerV4HandlerAdapter()); // V4 컨트롤러 어댑터 탑재
-    }
-
     private void initHandlerMappingMap() {
         // V3 추가
         handlerMappingMap.put("/front-controller/v5/v3/members/new-form", new MemberFormControllerV3());
@@ -50,6 +45,11 @@ public class FrontControllerServletV5 extends HttpServlet {
         handlerMappingMap.put("/front-controller/v5/v4/members/new-form", new MemberFormControllerV4());
         handlerMappingMap.put("/front-controller/v5/v4/members/save", new MemberSaveControllerV4());
         handlerMappingMap.put("/front-controller/v5/v4/members", new MemberListControllerV4());
+    }
+
+    private void initHandlerAdapters() {
+        handlerAdapters.add(new ControllerV3HandlerAdapter()); // V3 컨트롤러 어댑터 탑재
+        handlerAdapters.add(new ControllerV4HandlerAdapter()); // V4 컨트롤러 어댑터 탑재
     }
 
     @Override
@@ -63,7 +63,7 @@ public class FrontControllerServletV5 extends HttpServlet {
             return;
         }
 
-        MyHandlerAdapter adapter = getHandlerAdapter(handler); // 2. handler adapter를 가져옴.
+        MyHandlerAdapter adapter = getHandlerAdapter(handler); // 2. (1.에서 찾은 handler를 사용할 수 있게 해주는) handler adapter를 가져옴.
 
         ModelView mv = adapter.handle(request, response, handler); // 3~5. handler 호출, 그리고 ModelView 반환.
 
