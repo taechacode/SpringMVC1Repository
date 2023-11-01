@@ -9,6 +9,7 @@ public class MappingController {
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
+    // Spring은 '/hello-basic'과 '/hello-basic/' 요청들을 같은 요청으로 매핑한다.
     @RequestMapping({"/hello-basic", "/hello-go"})
     public String helloBasic() {
         log.info("helloBasic");
@@ -21,6 +22,14 @@ public class MappingController {
         return "ok";
     }
 
+    /**
+     * 편리한 축약 애노테이션 (코드보기)
+     * @GetMapping
+     * @PostMapping
+     * @PutMapping
+     * @DeleteMapping
+     * @PatchMapping
+     */
     @GetMapping(value = "/mapping-get-v2")
     public String mappingGetV2() {
         log.info("mappingGetV2");
