@@ -9,7 +9,8 @@ public class MappingController {
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
-    // Spring은 '/hello-basic'과 '/hello-basic/' 요청들을 같은 요청으로 매핑한다.
+    // (스프링 부트 3.0 이전) Spring은 '/hello-basic'과 '/hello-basic/' 요청들을 같은 요청으로 매핑한다.
+    // (스프링 부트 3.0 이후) 이전에는 마지막에 있는 /(slash)를 제거했지만, 스프링 부트 3.0부터는 마지막의 /(slash)를 유지한다.
     @RequestMapping({"/hello-basic", "/hello-go"})
     public String helloBasic() {
         log.info("helloBasic");

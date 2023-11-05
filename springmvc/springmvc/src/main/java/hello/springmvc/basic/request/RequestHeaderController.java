@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
-@Slf4j
+@Slf4j // private static final org.slf4j.Logger log = ...를 자동으로 생성해서 로그를 선언해주는 역할. 개발자 입장에서는 바로 선언된 log 사용 가능.
 @RestController
 public class RequestHeaderController {
 
