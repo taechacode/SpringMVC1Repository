@@ -107,16 +107,20 @@ public class RequestParamController {
         // helloData.setAge(age);
 
         log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
-        log.info("helloData={}", helloData);
+        log.info("helloData={}", helloData); // HelloData 클래스에 붙어있는 @Data에 @ToString이 들어있음.
 
         return "ok";
     }
 
     @ResponseBody
     @RequestMapping("/model-attribute-v2")
-    public String modelAttributeV2(HelloData helloData) {
+    public String modelAttributeV2(HelloData helloData) { // @ModelAttribute 생략 가능.
         log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
         log.info("helloData={}", helloData);
+
+        // Spring은 위와 같이 파라미터에 애노테이션 생략 시 다음과 같은 규칙을 적용한다.
+        // 'String', 'int', 'Integer'와 같은 단순 타입은 '@RequestParam'
+        // 나머지는 '@ModelAttribute' (argument resolver로 지정해둔 타입 외)
 
         return "ok";
     }
