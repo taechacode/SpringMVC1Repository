@@ -52,9 +52,10 @@ public class RequestBodyJsonController {
 
     // @RequestBody를 생략하면 @ModelAttribute 적용
     // 생략하면 HTTP 메시지 Body가 아니라 요청 파라미터를 처리하게 된다.
+    // 만약 HelloData가 아니고 String, int, Integer와 같은 단순 타입이었다면 @RequestParam이 자동 적용된다.
     @ResponseBody
     @PostMapping("/request-body-json-v3")
-    public String requestBodyJsonV3(@RequestBody HelloData helloData) {
+    public String requestBodyJsonV3(@RequestBody HelloData helloData) { // HttpMessageConverter 사용 -> MappingJackson2HttpMessageConverter (content-type: application/json)
         log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
         return "ok";
     }
@@ -69,9 +70,9 @@ public class RequestBodyJsonController {
 
     @ResponseBody
     @PostMapping("/request-body-json-v5")
-    public HelloData requestBodyJsonV5(@RequestBody HelloData data) {
+    public HelloData requestBodyJsonV5(@RequestBody HelloData data) { // @RequestBody : JSON 입력 -> HTTP 메시지 컨버터 -> 객체(HelloData)
         log.info("username={}, age={}", data.getUsername(), data.getAge());
-        return data;
+        return data; // @ResponseBody : 객체(HelloData) -> HTTP 메시지 컨버터 -> JSON 응답
     }
 
 }
