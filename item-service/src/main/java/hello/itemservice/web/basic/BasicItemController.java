@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,9 +45,62 @@ public class BasicItemController {
         return "basic/addForm";
     }
 
+    // @PostMapping("/add")
+    public String addItemV1(@RequestParam String itemName,
+                       @RequestParam int price,
+                       @RequestParam Integer quantity,
+                       Model model){
+
+        Item item = new Item();
+        item.setItemName(itemName);
+        item.setPrice(price);
+        item.setQuantity(quantity);
+
+        itemRepository.save(item);
+
+        model.addAttribute("item", item);
+
+        return "basic/item";
+    }
+
+    // @PostMapping("/add")
+    public String addItemV2(@ModelAttribute("item") Item item, Model model){
+
+        /* 파라미터의 ModelAttribute가 아래의 코드를 대신해준다.
+        Item item = new Item();
+        item.setItemName(itemName);
+        item.setPrice(price);
+        item.setQuantity(quantity);
+         */
+
+        itemRepository.save(item);
+        // model.addAttribute("item", item); // 파라미터의 ModelAttribute가 코드를 대신해준다.
+
+        return "basic/item";
+    }
+
+    // @PostMapping("/add")
+    public String addItemV3(@ModelAttribute Item item, Model model){
+
+        /* 파라미터에 Model의 이름을 지정해주지 않으면 어떻게 될까?
+        Item -> item
+        클래스의 첫 글자를 소문자로 바꾼 것을 이름으로 사용한다.
+
+        @ModelAttribute HelloData item의 경우에는..
+        HelloData -> helloData
+        model.addAttribute("helloData", item);
+         */
+
+        itemRepository.save(item);
+        // model.addAttribute("item", item); // 파라미터의 ModelAttribute가 코드를 대신해준다.
+
+        return "basic/item";
+    }
+
     @PostMapping("/add")
-    public String save(){
-        return "basic/addForm";
+    public String addItemV4(Item item){
+        itemRepository.save(item);
+        return "basic/item";
     }
 
     /*
